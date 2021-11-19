@@ -3,16 +3,14 @@
 ![Build](https://travis-ci.org/Masth0/ScratchCard.svg?branch=v2)
 ![version](https://img.shields.io/npm/v/scratchcard-js.svg)
 
-ScratchCard is a js lib to simulate a scratchcard in browser with html5 and canvas.
-
-You can see the [**demo page**](https://masth0.github.io/ScratchCard/).
+Scratcher is a js lib to simulate a scratchcard in browser with html5 and canvas.
 
 ## Install
 
 Install from github with npm:
 
 ```
-npm install github:jessesward/Scratcher
+npm install --save github:jessesward/Scratcher
 ```
 
 ## Getting started
@@ -49,8 +47,8 @@ scratchCard.init().then(() => {
 
 ## Events
 
-**'scratch.complete'**
-Fires when you've scratched of the specified percente
+**'scratcher.complete'**
+Fires when you've scratched of the specified percent
 
 ```js
 canvas.addEventListener("scratcher.complete", () => {
