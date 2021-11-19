@@ -46,9 +46,13 @@ scratchCard.init().then(() => {
 ## Options
 
 `canvas` The canvas element
+
 `scratchImageSrc` The path to the overlay image that will be scratched off
+
 `brushImageSrc` The path to the image that will be used for the brush
+
 `percentToFinish` The percentage of the overlay that needs to be scratched off before firing the `scratcher.complete` event
+
 `brushSize` The size of the brush
 
 ## Events
