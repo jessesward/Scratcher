@@ -1,7 +1,7 @@
 export default class Mask {
   constructor(brush, size, width, height) {
     this.brush = brush
-    this.brushSize = size ?? 150
+    this.brushSize = size || 150
     this.canvas = document.createElement("canvas")
     this.canvas.width = width
     this.canvas.height = height

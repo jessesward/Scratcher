@@ -2,7 +2,6 @@ export default class Background {
   constructor(bgImage) {
     this.parentWidth = 0
     this.parentHeight = 0
-    this.borderSize = 20
     this.canvas = document.createElement("canvas")
     this.ctx = this.canvas.getContext("2d")
     this.bgImage = bgImage
