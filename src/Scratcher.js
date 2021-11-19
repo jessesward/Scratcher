@@ -5,8 +5,8 @@ const MAX_WIDTH = 1400
 export default class Scratcher {
   constructor(config) {
     this.canvas = config.canvas
-    this.percentToFinish = config.percentToFinish ?? 1
-    this.brushSize = config.brushSize ?? 150
+    this.percentToFinish = config.percentToFinish || 1
+    this.brushSize = config.brushSize || 150
     this.ASSETS = {
       background: config.scratchImageSrc,
       brush: config.brushImageSrc,

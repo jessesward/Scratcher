@@ -9,19 +9,11 @@ You can see the [**demo page**](https://masth0.github.io/ScratchCard/).
 
 ## Install
 
-You can install ScratchCard with npm:
+Install from github with npm:
 
 ```
-npm install --save scratchcard-js
+npm install github:jessesward/Scratcher
 ```
-
-or just clone this repo:
-
-```
-git clone https://github.com/Masth0/ScratchCard.git
-```
-
-and pick in the folder **./build** the file **scratchard.min.js**
 
 ## Getting started
 
