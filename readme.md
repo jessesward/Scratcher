@@ -7,10 +7,10 @@ Scratcher is a js lib to simulate a scratchcard in browser with html5 and canvas
 
 ## Install
 
-Install from github with npm:
+Install with npm:
 
 ```
-npm install --save github:jessesward/Scratcher
+npm i --save scratcher-js
 ```
 
 ## Getting started
