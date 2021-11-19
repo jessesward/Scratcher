@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scratcher</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="wrapper">
+      <canvas id="scratcher"></canvas>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../build/scratcher.min.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('load', function () {
+          const scratchCanvas = document.getElementById('scratcher')
+          const scratchCard = new Scratcher({
+            canvas: scratchCanvas,
+            scratchImageSrc: './images/scratchcard.png',
+            brushImageSrc: './images/brush.png',
+            percentToFinish: 0.8,
+            brushSize: 150,
+          })
+          scratchCard.init().then(() => {
+            scratchCanvas.addEventListener('scratcher.complete', () => {
+              console.log('Complete!')
+            })
+          })
+        });
+    </script>
+    
+</body>
+</html>
