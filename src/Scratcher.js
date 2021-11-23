@@ -5,8 +5,9 @@ const MAX_WIDTH = 1400
 export default class Scratcher {
   constructor(config) {
     this.canvas = config.canvas
-    this.percentToFinish = config.percentToFinish || 1
-    this.brushSize = config.brushSize || 150
+    this.percentToFinish = config.percentToFinish ?? 1
+    this.brushSize = config.brushSize ?? 150
+    this.responsive = config.responsive ?? true
     this.ASSETS = {
       background: config.scratchImageSrc,
       brush: config.brushImageSrc,
@@ -34,12 +35,14 @@ export default class Scratcher {
       this.canvas.width = this.canvas.offsetWidth
       this.canvas.height = this.canvas.offsetHeight
 
-      this.renderWidth = 0
-      this.renderHeight = 0
+      this.renderWidth = this.canvas.offsetWidth
+      this.renderHeight = this.canvas.offsetHeight
 
-      this.resize = this.resizeHandler.bind(this)
-      this.resize()
-      window.addEventListener("resize", this.resize)
+      if (this.responsive) {
+        this.resize = this.resizeHandler.bind(this)
+        this.resize()
+        window.addEventListener("resize", this.resize)
+      }
 
       this.loadImages().then(() => {
         this.loaded = true
@@ -47,26 +50,28 @@ export default class Scratcher {
         this.mask = new Mask(
           this.images.brush,
           this.brushSize,
-          this.canvas.width,
-          this.canvas.height
+          this.renderWidth,
+          this.renderHeight
         )
         this.background.draw(this.renderWidth, this.renderHeight)
         this.render()
+        resolve()
       })
-      resolve()
     })
   }
 
   resizeHandler() {
-    const ratio = window.innerHeight / window.innerWidth
-    this.renderWidth = Math.min(MAX_WIDTH, window.innerWidth)
-    this.renderHeight = this.renderWidth * ratio
-    this.canvas.width = this.renderWidth
-    this.canvas.height = this.renderHeight
+    if (this.responsive) {
+      const ratio = window.innerHeight / window.innerWidth
+      this.renderWidth = Math.min(MAX_WIDTH, window.innerWidth)
+      this.renderHeight = this.renderWidth * ratio
+      this.canvas.width = this.renderWidth
+      this.canvas.height = this.renderHeight
 
-    if (this.loaded) {
-      this.draw()
-      this.background.draw(this.renderWidth, this.renderHeight)
+      if (this.loaded) {
+        this.draw()
+        this.background.draw(this.renderWidth, this.renderHeight)
+      }
     }
   }
 
@@ -97,14 +102,25 @@ export default class Scratcher {
 
   render() {
     this.raf = requestAnimationFrame(this.render.bind(this))
-    this.resize()
+    if (this.responsive) {
+      this.resize()
+    }
     this.draw()
+  }
+
+  offset(el) {
+    // Returns the distance from the side and top of the window of an element
+    const rect = el.getBoundingClientRect()
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
   }
 
   handleInput(event, target) {
     if (event) {
-      const xPer = (event.clientX - target.offsetLeft) / target.offsetWidth
-      const yPer = (event.clientY - target.offsetTop) / target.offsetHeight
+      const offset = this.offset(target)
+      const xPer = (event.clientX - offset.left) / target.offsetWidth
+      const yPer = (event.clientY - offset.top) / target.offsetHeight
       this.mask.draw(xPer, yPer)
       if (this.mask.checkPercent() > this.percentToFinish) {
         const complete = new Event("scratcher.complete")

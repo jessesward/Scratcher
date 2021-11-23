@@ -5,8 +5,8 @@ export default class Mask {
     this.canvas = document.createElement("canvas")
     this.canvas.width = width
     this.canvas.height = height
-    this.parentWidth = 0
-    this.parentHeight = 0
+    // this.parentWidth = 0
+    // this.parentHeight = 0
     this.ctx = this.canvas.getContext("2d")
     // window.addEventListener('resize', () => {
     //   this.handleResize()
